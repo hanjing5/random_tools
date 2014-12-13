@@ -2,6 +2,7 @@ require 'rubygems'
 require 'mysql2'
 
 filename = ARGV[0]
+DB_NAME = "test"
 
 column_names = []
 f = File.open(filename)
@@ -25,5 +26,8 @@ end
 columns = columns[0..-2]
 
 table_query = "CREATE TABLE #{table_name} (#{columns});"
-p table_query
+puts table_query
 #p column_names
+
+load_query = "LOAD DATA INFILE '#{File.expand_path(filename)}' INTO TABLE #{DB_NAME}.#{table_name};"
+puts load_query
